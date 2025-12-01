@@ -9,16 +9,9 @@ pipeline {
         stage('Read package.json') {
             steps {
                 script {
-                    // Defensive check: confirm file exists
-                    if (!fileExists('package.json')) {
-                    echo "DEBUG: Current directory is $(pwd)"
-                    sh 'ls -la'
-                    error "package.json not found in workspace. Please check your repo and Jenkinsfile location."
-                     }
-                    // Read and extract version
-                    def packageJson = readJSON file: 'package.json'
-                    def appVersion = packageJson.version
-                    echo "✅ Package version: ${appVersion}"
+                def packageJson = readJSON file: 'package.json'
+                appVersion = packageJson.version
+                echo "Package version: ${appVersion}"
                 }
             }
         }
