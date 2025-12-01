@@ -9,13 +9,16 @@ pipeline {
         stage('Read package.json') {
             steps {
                 script {
-                    sh """
-                        ls
-                        pwd
-                    """
-                def packageJson = readJSON file: 'package.json'
-                appVersion = packageJson.version
-                echo "Package version: ${appVersion}"
+                    // Show current directory
+                    echo "📂 Current working directory:"
+                    sh 'pwd'
+
+                    // List files in the directory
+                    echo "📄 Files in workspace:"
+                    sh 'ls -la'
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "Package version: ${appVersion}"
                 }
             }
         }
