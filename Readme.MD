@@ -14,5 +14,18 @@
     Pipeline: AWS Steps  >>> This plugins adds Jenkins pipeline steps to interact with the AWS API.
     SonarQube Scanner >>> This will enable the options for sonarqube in Jenkins
 
+## Installations on Master and Node
+
+   As our build is taking place on our agent-node we should install the nodeJS on it.
+
+   sudo dnf module disable nodejs -y
+   sudo dnf module enable nodejs:20 -y
+   sudo dnf module enable nodejs:20 -y
+   sudo dnf install nodejs -y
+
+
+
+
+
 
     
