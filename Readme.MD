@@ -46,6 +46,12 @@
 
 ![alt text](images/Docker.png)
 
+   Adding the AWS Credentials into Jenkins
+
+   Manage Jenkins >> Credentials >> System >> Global credentials (unrestricted) >> Add Credentials  >> AWS Credentials (as we installed AWS Credentials Plugin this option will be available in the Kind of credentials)
+
+![alt text](images/aws-creds.png)
+
 
 
 
