@@ -12,7 +12,7 @@
     AWS Credentials  >>> Allows storing Amazon IAM credentials within the Jenkins Credentials API. Store Amazon IAM access keys 
     (AWSAccessKeyId and AWSSecretKey) within the Jenkins Credentials API. Also support IAM Roles and IAM MFA Token.
     Basically, if you have this plugin, we can talk to AWS via Jenkins and perform the necessary activities(we have to give our Access ID and Secret in the Jenkins )
-    Pipeline: AWS Steps  >>> This plugins adds Jenkins pipeline steps to interact with the AWS API.
+    AWS Steps  >>> This plugins adds Jenkins pipeline steps to interact with the AWS API.
     SonarQube Scanner >>> This will enable the options for sonarqube in Jenkins
 
 ## Installations on Master and Node
@@ -51,6 +51,8 @@
    Manage Jenkins >> Credentials >> System >> Global credentials (unrestricted) >> Add Credentials  >> AWS Credentials (as we installed AWS Credentials Plugin this option will be available in the Kind of credentials)
 
 ![alt text](images/aws-creds.png)
+
+
 
 
 
