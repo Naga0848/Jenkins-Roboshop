@@ -41,6 +41,8 @@
 	
 	docker push 843303282697.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:latest
 
+   Below image is from AWS console which has commands to build and push athe Image to ECR  
+
 ![alt text](images/Docker.png)
 
 
