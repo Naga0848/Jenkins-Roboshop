@@ -2,7 +2,7 @@
 
    https://www.jenkins.io/doc/book/pipeline/jenkinsfile/   path to know the Jenkinsfile syntax and we can develop our Jenkinsfile according to our requirment.
 
-#### Plugins to be installed
+## Plugins to be installed
 
     Stage View   >>> Pipeline Stage View Plugin.
 
@@ -17,7 +17,7 @@
     Basically, if you have this plugin, we can talk to AWS via Jenkins and perform the necessary activities(we have to give our Access ID and Secret in the Jenkins )
 
     AWS Steps  >>> This plugins adds Jenkins pipeline steps to interact with the AWS API.
-    
+
     SonarQube Scanner >>> This will enable the options for sonarqube in Jenkins
 
 ## Installations on Master and Node
