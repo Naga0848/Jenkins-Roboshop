@@ -84,11 +84,11 @@
 
    Integration testing --> this is done by testers in SIT/UAT/QA environments
 
-      the test cases for integration testing are written by testers. Basically here they check if the integration between the components.
+      The test cases for integration testing are written by testers. Basically here they check if the integration between the components.
       Here we have multiple componets like catalogue, cart, shipping, user etc...
       And cart is dependent on catalogue as we know, if cart is not able to call the catalogue, then the application fails. So, test this integration between the components tester write some test cases.
       Here testers use different tools like selenium, cucumber etc to run these tests and the pipeline fails it does not pass the test cases.
-      
+
 
 
 
