@@ -56,8 +56,41 @@
    Manage Jenkins >> Credentials >> System >> Global credentials (unrestricted) >> Add Credentials  >> AWS Credentials (as we installed AWS Credentials Plugin this option will be available in the Kind of credentials)
 
    Below is the image for Adding AWS Credentials into Jenkins
+
+   Make sure we have docker installed on Jenkins Agent and do not forget to exit and login back into the Jenkins agent ec2
    
 ![alt text](images/aws-creds.png)
+
+## Understanding about Testing   
+
+   Unit testing --> test case should be written by developers only and this should be done by developer
+
+      functions are basic blocks of the programming
+
+         login(username, password){
+	
+            }
+            this login function will be tested by the developers or the testers in the unit testing, by giving  the random username and passwords etc...
+
+   Functional testing  ---> test case should be written by testers or developers
+
+      login(username, password){
+	         connectSQL()
+	         checkUserName()
+	         checkPassword()
+            }
+            here, if the login function comes here, the developers or testers should write the test cases to check the complete login function as shown above
+
+
+   Integration testing --> this is done by testers in SIT/UAT/QA environments
+
+      the test cases for integration testing are written by testers. Basically here they check if the integration between the components.
+      Here we have multiple componets like catalogue, cart, shipping, user etc...
+      And cart is dependent on catalogue as we know, if cart is not able to call the catalogue, then the application fails. So, test this integration between the components tester write some test cases.
+      Here testers use different tools like selenium, cucumber etc to run these tests and the pipeline fails it does not pass the test cases.
+      
+
+
 
 
 
