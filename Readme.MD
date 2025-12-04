@@ -36,7 +36,7 @@
 
    In Jenkins Master  >>> Configure >> Triggers >>  Enable GitHub hook trigger for GITScm polling and Save & Apply
 
-## Commands to install Docker on an EC2
+## Commands to install Docker on Jenkins Agent
 
     sudo dnf -y install dnf-plugins-core
 
@@ -49,6 +49,8 @@
     sudo systemctl enable --now docker
 
     sudo usermod -aG docker ec2-user
+
+    Exit and re-login to the Jenkins Agent after adding ec2-user to the Docker group
 
 ## Docker Image Creation in Jenkinsfile
 
