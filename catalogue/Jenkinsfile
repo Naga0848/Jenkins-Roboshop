@@ -24,10 +24,7 @@ pipeline {
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
                 script {
-                     // Directly reference package.json   
-                    if (!fileExists('package.json')){
-                        error "❌ package.json not found in workspace. Check checkout path."
-                    }
+                    def pkgPath = 'catalogue/package.json'
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
                     echo "Package version: ${appVersion}"
@@ -38,6 +35,7 @@ pipeline {
         stage('Installing Dependencies') {  // this stage is to install the dependencies
             steps {
                 script {
+                dir('catalogue')
                 sh """
                     npm install
                 """
