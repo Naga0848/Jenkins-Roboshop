@@ -18,7 +18,8 @@ pipeline {
                     pwd
                     ls -la
                     if (!fileExists('package.json')) {
-                    error "❌ package.json not found in cur
+                    error "❌ package.json not found in current directory."
+                    
                     """
   }
             def packageJson = readJSON file: 'package.json'
