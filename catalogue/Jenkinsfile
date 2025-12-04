@@ -15,12 +15,6 @@ pipeline {
             ansiColor('xterm')   // to enable the colurs in the console output
              }  
     stages {
-        stage('Debug Stage'){
-            steps {
-                sh 'pwd'
-                sh 'ls -la'
-            }
-            }
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
                 script {
