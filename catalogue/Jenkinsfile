@@ -4,11 +4,18 @@ pipeline {
     }
      environment { 
         appVersion = ''
+        REGION = "us-east-1"
+        ACC_ID = "843303282697"
+        PROJECT = "roboshop"
+        COMPONENT = "catalogue"
      }
     stages {
         stage('Read package.json') {
             steps {
                 script {
+                    sh """
+                        cd catalogue
+                    """
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
                     echo "Package version: ${appVersion}"
