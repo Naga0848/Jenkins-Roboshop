@@ -14,11 +14,13 @@ pipeline {
         stage('Read package.json') {
             steps {
                 script {
-                    sh """
-                        cd catalogue
-                        ls -ltr 
-                        pwd
-                        """
+                    // Show current directory and files
+                        sh 'pwd'
+                        sh 'ls -la'
+          // Read package.json directly (since Jenkinsfile is inside catalogue)
+                         if (!fileExists('package.json')) {
+                            error "❌ package.json not found in current directory."
+          }
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
                     echo "Package version: ${appVersion}"
