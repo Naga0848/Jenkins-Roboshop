@@ -15,10 +15,10 @@ pipeline {
                 script {
                     sh """
                         cd catalogue
-                    """
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
                     echo "Package version: ${appVersion}"
+                    """
                 }
             }
         }
