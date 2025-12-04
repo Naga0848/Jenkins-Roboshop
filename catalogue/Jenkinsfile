@@ -13,8 +13,7 @@ pipeline {
             timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
             disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
             ansiColor('xterm')   // to enable the colurs in the console output
-             }
-    dir('catalogue'){    
+             }  
     stages {
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
@@ -54,5 +53,4 @@ pipeline {
             }
         }
     }
-}
 }
