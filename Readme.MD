@@ -9,6 +9,7 @@
     AnsiColor    >>> Adds ANSI coloring to the Console Output
 
     Blue Ocean   >>> This plugin shows the output in a neat and clean way in all the stages step by step
+
     Pipeline Utility Steps >>> key reasons why this plugin is utilized is File and Archive Operations, Version Management, 
     Workspace Manipulation and General Utility
     
@@ -25,7 +26,6 @@
    As our build is taking place on our agent-node we should install the nodeJS on it.
 
    sudo dnf module disable nodejs -y
-   sudo dnf module enable nodejs:20 -y
    sudo dnf module enable nodejs:20 -y
    sudo dnf install nodejs -y
 
