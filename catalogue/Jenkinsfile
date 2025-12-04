@@ -3,6 +3,7 @@ pipeline {
         label 'AGENT-1'  // this is the Label which we mentioned while configuring the Jenkins agent and this pipeline gets exected, when these both the values match
     }
      environment { 
+        SERVICE_DIR = "catalogue" // Change the default working directory for the whole pipeline and This makes all stages run inside catalogue/
         appVersion = ''
         REGION = "us-east-1"
         ACC_ID = "843303282697"
@@ -13,7 +14,6 @@ pipeline {
             timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
             disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
             ansiColor('xterm')   // to enable the colurs in the console output
-            dir('catalogue') // Change the default working directory for the whole pipeline and This makes all stages run inside catalogue/
              }  
     stages {
         stage('Debug Stage'){
