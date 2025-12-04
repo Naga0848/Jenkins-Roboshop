@@ -1,7 +1,6 @@
 pipeline {
     agent {
         label 'AGENT-1'  // this is the Label which we mentioned while configuring the Jenkins agent and this pipeline gets exected, when these both the values match
-        dir 'catalogue'
     }
      environment {
         appVersion = ''
@@ -19,8 +18,8 @@ pipeline {
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
                 script {
-                    
-                    def packageJson = readJSON file: 'package.json'
+                    def pkgPath = 'catalogue/package.json'
+                    def packageJson = readJSON file: pkgPath
                     appVersion = packageJson.version
                     echo "Package version: ${appVersion}"
 
@@ -30,16 +29,16 @@ pipeline {
         stage('Installing Dependencies') {  // this stage is to install the dependencies
             steps {
                 script {
-                    
+                    dir('catalogue'){
                     sh 'npm install'
-                     
+                     }
                 }
             }
         }
         stage('Docker Build') { // what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
             steps {
                 script {
-                    
+                    dir('catalogue'){
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                 sh """
                     aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
@@ -48,7 +47,7 @@ pipeline {
                     #aws ecr wait image-scan-complete --repository-name ${PROJECT}/${COMPONENT} --image-id imageTag=${appVersion} --region ${REGION}
                 """
                 }
-                      
+                    }  
                 }
             }
         }
