@@ -9,7 +9,6 @@ pipeline {
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
      }
-    dir{"catalogue"}{
     stages {
         stage('Read package.json') {
             steps {
@@ -38,5 +37,5 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-    }
+    
 }
