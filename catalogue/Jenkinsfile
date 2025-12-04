@@ -9,7 +9,7 @@ pipeline {
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
      }
-     dir "{catalogue}"
+     dir"{catalogue}"
     stages {
         stage('Read package.json') {
             steps {
