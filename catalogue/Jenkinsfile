@@ -14,6 +14,7 @@ pipeline {
             timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
             disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
             ansiColor('xterm')   // to enable the colurs in the console output
+            dir 'catalogue' // Change the default working directory for the whole pipeline and This makes all stages run inside catalogue/
              }  
     stages {
         stage('Debug Stage'){
