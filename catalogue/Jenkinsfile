@@ -9,33 +9,22 @@ pipeline {
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
      }
-    stages {
+     stages {
         stage('Read package.json') {
-            steps {
-                script {
-                    // Show current directory and files
-                        sh """
-                            pwd
-                            ls -la
-                            if (!fileExists('package.json')) {
-                            error "❌ package.json not found in current directory."
-                            """
-          }
-                    def packageJson = readJSON file: 'package.json'
-                    appVersion = packageJson.version
-                    echo "Package version: ${appVersion}"
-                }
-            }
+    steps {
+        script {
+            // Show current directory and files
+                sh """
+                    pwd
+                    ls -la
+                    if (!fileExists('package.json')) {
+                    error "❌ package.json not found in cur
+                    """
+  }
+            def packageJson = readJSON file: 'package.json'
+            appVersion = packageJson.version
+            echo "Package version: ${appVersion}"
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    
+    }
+     }
 }

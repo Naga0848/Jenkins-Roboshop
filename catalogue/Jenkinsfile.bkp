@@ -1,0 +1,41 @@
+pipeline {
+    agent {
+        label 'AGENT-1'
+    }
+     environment { 
+        appVersion = ''
+        REGION = "us-east-1"
+        ACC_ID = "843303282697"
+        PROJECT = "roboshop"
+        COMPONENT = "catalogue"
+     }
+    stages {
+        stage('Read package.json') {
+            steps {
+                script {
+                    // Show current directory and files
+                        sh """
+                            pwd
+                            ls -la
+                            if (!fileExists('package.json')) {
+                            error "❌ package.json not found in current directory."
+                            """
+          }
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "Package version: ${appVersion}"
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    
+}
