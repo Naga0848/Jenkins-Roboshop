@@ -15,11 +15,12 @@ pipeline {
             steps {
                 script {
                     // Show current directory and files
-                        sh 'pwd'
-                        sh 'ls -la'
-          // Read package.json directly (since Jenkinsfile is inside catalogue)
-                         if (!fileExists('package.json')) {
+                        sh """
+                            pwd
+                            ls -la
+                            if (!fileExists('package.json')) {
                             error "❌ package.json not found in current directory."
+                            """
           }
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
