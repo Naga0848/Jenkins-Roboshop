@@ -106,7 +106,7 @@
 
 
 
-## Terraform Installation on Jenkins Agent 
+## Terraform Installation on Jenkins Agent - This is required when we are creating our Infra using Jenkins Pipelines
 
    Install yum-config-manager to manage your repositories.
 
