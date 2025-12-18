@@ -15,17 +15,21 @@ pipeline {
             ansiColor('xterm')   // to enable the colurs in the console output
              }  
      parameters {
-        string(name: 'appVersion', description: 'Image version of the application')
-        choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick the Environment')
+        string(name: 'appVersion', description: 'Image version of the application')  // version of the image
+        choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick the Environment')  // this displays in which env we are deploying
                 }        
     stages {
-        stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
+        stage('Deploy') {  // this stage is to deploy into K8s
             steps {
                 script {
-                    def pkgPath = 'catalogue/package.json'
-                    def packageJson = readJSON file: pkgPath
-                    appVersion = packageJson.version
-                    echo "Package version: ${appVersion}"
+                    withAWS(credentials: 'aws-creds', region: 'us-east-1') {  // kubectl must be installed on Jenkins Agent and AWS creds must be configured in Jenkins Master
+                        sh """
+                            aws eks update-kubeconfig --region $REGION --name "$PROJECT-${params.deploy_to}"
+                            kubectl get nodes
+
+                        """
+
+                    }
 
                 }
             }

@@ -51,5 +51,38 @@ pipeline {
                 }
             }
         }
+        stage('Trigger Deploy') { // This will trigger the catalogue deployment 
+            when{
+                expression { params.deploy }
+            }
+            steps {
+                script {
+                    dir('catalogue-deployment'){
+                    //build job: 'catalogue-deployment',
+                    parameters: [
+                            string(name: 'appVersion', value: "${appVersion}"),
+                            string(name: 'deploy_to', value: 'dev')
+                        ],
+                        propagate: false,  // even catalogue-deployment fails, catalogue will not be effected
+                        wait: false // catalogue will not wait for catalogue-deployment pipeline completion
+        
+            }  
+        }
     }
 }
+    }
+}
+
+    post{
+        always { 
+            echo 'I will always say Hello again!'
+            deleteDir()
+              }
+        success { 
+            echo 'Hello Success'
+                }
+        failure { 
+            echo 'Hello Failure'
+                }
+    }
+
