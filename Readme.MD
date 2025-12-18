@@ -153,6 +153,22 @@
    kubectl get nodes  >> this will work if we properly added the security groups
 
 
+## Complete Setup before deploying
+
+   backend repo -> CI
+   backend deploy -> CD
+
+   1. create infra
+   2. EKS setup
+	      allow jenkins agent sg in eks control plane
+	      create namespace
+	      create DB pods
+		   mongodb redis mysql rabbitmq
+   3. we can deploy applications
+
+DEV --> QA --> CR --> PROD
+
+
 
 
     
