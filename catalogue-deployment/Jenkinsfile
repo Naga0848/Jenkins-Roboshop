@@ -22,6 +22,7 @@ pipeline {
         stage('Deploy') {  // this stage is to deploy into K8s
             steps {
                 script {
+                    dir('catalogue-deployment')
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {  // kubectl must be installed on Jenkins Agent and AWS creds must be configured in Jenkins Master
                         sh """
                             aws eks update-kubeconfig --region $REGION --name "$PROJECT-${params.deploy_to}"
