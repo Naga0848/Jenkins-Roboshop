@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     dir('catalogue-deployment'){
-                    //build job: 'catalogue-deployment',
+                    build job: 'catalogue-deployment',
                     parameters: [
                             string(name: 'appVersion', value: "${appVersion}"),
                             string(name: 'deploy_to', value: 'dev')
