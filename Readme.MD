@@ -76,7 +76,7 @@
    
 ![alt text](images/aws-creds.png)
 
-## Understanding about Testing   
+### Understanding about Testing   
 
    Unit testing --> test case should be written by developers only and this should be done by developer
 
@@ -106,7 +106,7 @@
 
 
 
-## Terraform Installation on Jenkins Agent - This is required when we are creating our Infra using Jenkins Pipelines
+### Terraform Installation on Jenkins Agent - This is required when we are creating our Infra using Jenkins Pipelines
 
    Install yum-config-manager to manage your repositories.
 
@@ -121,7 +121,7 @@
     $ sudo yum -y install terraform
 
 
-## Install Helm and Kubernetes on the Jenkins node, as we are using Helm charts to deploy the robohop services on to K8s
+### Install Helm and Kubernetes on the Jenkins node, as we are using Helm charts to deploy the robohop services on to K8s
 
    Download the kubectl binary for your cluster’s Kubernetes version from Amazon S3.
 
