@@ -124,7 +124,7 @@
 ## Install Helm and Kubernetes on the Jenkins node, as we are using Helm charts to deploy the robohop services on to K8s
 
    Download the kubectl binary for your cluster’s Kubernetes version from Amazon S3.
-   
+
    curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
 
    Apply execute permissions to the binary.
@@ -133,6 +133,7 @@
    sudo mv kubectl /usr/local/bin    >>> moving to another folder
 
    After you install kubectl, you can verify its version.
+   
    kubectl version --client
 
    Steps to install helm on our worker machine
