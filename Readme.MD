@@ -153,9 +153,9 @@
    kubectl get nodes  >> this will work if we properly added the security groups
 
 
-## Complete Setup before deploying
+## Complete Setup before deploying the application
 
-   backend repo -> CI
+   backend repo -> CI 
    backend deploy -> CD
 
    1. create infra
