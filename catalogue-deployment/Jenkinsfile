@@ -14,6 +14,10 @@ pipeline {
             disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
             ansiColor('xterm')   // to enable the colurs in the console output
              }  
+     parameters {
+        string(name: 'appVersion', description: 'Image version of the application')
+        choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick the Environment')
+                }        
     stages {
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
