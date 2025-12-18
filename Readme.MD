@@ -142,6 +142,15 @@
 
 
 
+### Jenkins Agent(EC2) istance SG should be mapped with the EKS SG
+
+   Manually go to EKS security groups > edit > inbound > https > no pasthe the SG of Jenkins Agent(EC2) and save it.
+
+   Now, perform the below steps to ensure its working
+
+   aws console on Jenkins Agent(EC2)
+   provide Access-ley and secret-key
+   kubectl get nodes  >> this will work if we properly added the security groups
 
 
 
