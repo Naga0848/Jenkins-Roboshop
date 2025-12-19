@@ -168,4 +168,5 @@
 
 DEV --> QA --> CR --> PROD
 
-
+The below image shows how we can understand the rollback script written for a deployment
+![alt text](images/helm-rollback.png)
