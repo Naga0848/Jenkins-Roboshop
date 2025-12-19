@@ -21,7 +21,7 @@
 
     SonarQube Scanner >>> This will enable the options for sonarqube in Jenkins
 
-    rebuild >> this plugin provides an option in the deployment-repo to trigger only the deployment-repo
+    rebuild >> this plugin provides an option to rebild directly, ratherthan doing a regular build
 
 ## Installations on Master and Node
 
