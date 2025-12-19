@@ -21,6 +21,8 @@
 
     SonarQube Scanner >>> This will enable the options for sonarqube in Jenkins
 
+    rebuild >> this plugin provides an option in the deployment-repo to trigger only the deployment-repo
+
 ## Installations on Master and Node
 
    As our build is taking place on our agent-node we should install the nodeJS on it.
