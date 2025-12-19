@@ -168,5 +168,6 @@
 
 DEV --> QA --> CR --> PROD
 
-The below image shows how we can understand the rollback script written for a deployment
+The below image shows how we can understand the rollback script written for a deployment in deployment Jenkinsfile
+
 ![alt text](images/helm-rollback.png)
