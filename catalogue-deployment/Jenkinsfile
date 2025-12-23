@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-        stage('Docker Build') { // what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
+        stage('Check Status') { // this stage is to see, whether the deployment is deployed or not, if not we will rollback to the previous version, if we doing it for the first time, it will tell the status
             steps {
                 script {
                     dir('catalogue'){
