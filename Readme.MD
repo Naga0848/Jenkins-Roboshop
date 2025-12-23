@@ -173,3 +173,11 @@ DEV --> QA --> CR --> PROD
 The below image shows how we can understand the rollback script written for a deployment in deployment Jenkinsfile
 
 ![alt text](images/helm-rollback.png)
+
+
+
+## Steps to be performed when we want to deploy the roboshop on an EKS Cluster
+
+on bastion ec2
+   aws configure
+   
