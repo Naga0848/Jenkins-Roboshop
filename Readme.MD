@@ -180,4 +180,6 @@ The below image shows how we can understand the rollback script written for a de
 
 on bastion ec2
    aws configure
+   aws-eks update-kubeconfig --region us-east-1 name roboshop-dev
+   kubectl get nodes
    
