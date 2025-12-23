@@ -22,7 +22,7 @@ pipeline {
         stage('Deploy') {  // this stage is to deploy into K8s
             steps {
                 script {
-                    dir('catalogue-deployment')  // line no-30&31 These commands replace the placeholder IMAGE_VERSION in the environment-specific Helm values file with the given application version, then perform a Helm upgrade (or install if not already deployed) of the specified component into the target Kubernetes namespace using that updated values file.
+                    dir('catalogue-deployment')  {// line no-30&31 These commands replace the placeholder IMAGE_VERSION in the environment-specific Helm values file with the given application version, then perform a Helm upgrade (or install if not already deployed) of the specified component into the target Kubernetes namespace using that updated values file.
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {  // kubectl must be installed on Jenkins Agent and AWS creds must be configured in Jenkins Master
                         sh """
                             aws eks update-kubeconfig --region $REGION --name "$PROJECT-${params.deploy_to}"
@@ -31,7 +31,7 @@ pipeline {
                             helm upgrade --install $COMPONENT -f values-${params.deploy_to}.yaml -n $PROJECT . 
                         """
                     }
-
+                    }
                 }
             }
         }
