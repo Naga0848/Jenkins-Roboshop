@@ -183,7 +183,7 @@ on bastion ec2
    aws-eks update-kubeconfig --region us-east-1 name roboshop-dev
    kubectl get nodes
    
-# Jenkins(catalogue-deplpyment) steps
+## Jenkins(catalogue-deplpyment) steps
 
 check rollout status, keep it in variable, write a condition using variable
 
