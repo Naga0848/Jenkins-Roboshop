@@ -1,91 +1,85 @@
 pipeline {
     agent {
-        label 'AGENT-1'  // this is the Label which we mentioned while configuring the Jenkins agent and this pipeline gets exected, when these both the values match
+        label 'AGENT-1'
     }
-     environment {
-        appVersion = ''
+    environment {
         REGION = "us-east-1"
         ACC_ID = "324512687633"
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
-     }
-     options {
-            timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
-            disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
-            ansiColor('xterm')   // to enable the colurs in the console output
-             }  
+        APP_VERSION = ''  // Will be overridden in stage
+    }
+    options {
+        timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
+        disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
+        ansiColor('xterm')   // to enable the colurs in the console output
+    }
     stages {
         stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
             steps {
                 script {
                     def pkgPath = 'catalogue/package.json'
                     def packageJson = readJSON file: pkgPath
-                    def appVersion = packageJson.version  // local variable, just for clarity
+                    def version = packageJson.version
 
-                    echo "Package version: ${appVersion}"
+                    echo "Package version: ${version}"
 
-                    // THIS IS THE KEY LINE: make it available to all later stages
-                    env.APP_VERSION = appVersion
+                    // Save to environment for use in all later stages
+                    env.APP_VERSION = version
                 }
             }
         }
+
         stage('Installing Dependencies') {  // this stage is to install the dependencies
             steps {
-                script {
-                    dir('catalogue'){
+                dir('catalogue') {
                     sh 'npm install'
-                     }
                 }
             }
         }
-        stage('Docker Build') { // what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
+
+        stage('Docker Build') {   // what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
             steps {
-                script {
-                    dir('catalogue'){
+                dir('catalogue') {
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                sh """
-                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
-                    docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
-                    docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
-                    #aws ecr wait image-scan-complete --repository-name ${PROJECT}/${COMPONENT} --image-id imageTag=${appVersion} --region ${REGION}
-                """
-                }
-                    }  
+                        sh """
+                            aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
+                            docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${env.APP_VERSION} .
+                            docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${env.APP_VERSION}
+                        """
+                    }
                 }
             }
         }
-        stage('Trigger Deploy') { // This will trigger the catalogue deployment 
-            when{
-                expression { params.deploy }
+
+        stage('Trigger Deploy') {   // This will trigger the catalogue deployment 
+            when {
+                expression { params.deploy == true }  // or just { params.deploy } if boolean
             }
             steps {
-                script {
-                    dir('catalogue-deployment'){
+                dir('catalogue-deployment') {
                     build job: 'catalogue-deployment',
                     parameters: [
-                            string(name: 'appVersion', value: "${appVersion}"),
-                            string(name: 'deploy_to', value: 'dev')
-                        ],
-                        propagate: false,  // even catalogue-deployment fails, catalogue will not be effected
-                        wait: false // catalogue will not wait for catalogue-deployment pipeline completion
-        
-            }  
+                        string(name: 'appVersion', value: "${env.APP_VERSION}"),
+                        string(name: 'deploy_to', value: 'dev')
+                    ],
+                    propagate: false,  // even catalogue-deployment fails, catalogue will not be effected
+                    wait: false // catalogue will not wait for catalogue-deployment pipeline completion
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'I will always say Hello again!'
+            deleteDir()
+        }
+        success {
+            echo 'Hello Success'
+        }
+        failure {
+            echo 'Hello Failure'
         }
     }
 }
-    }
-}
-
-    post{
-        always { 
-            echo 'I will always say Hello again!'
-            deleteDir()
-              }
-        success { 
-            echo 'Hello Success'
-                }
-        failure { 
-            echo 'Hello Failure'
-                }
-    }
-
