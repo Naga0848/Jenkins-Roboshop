@@ -220,4 +220,4 @@ check rollout status, keep it in variable, write a condition using variable
    ![alt text](images/sonarqube.png)
       In AWS console >> Instances >> launch Instances >> Sonarqube >> Subscribe it  >> launch the instance using the existing kepypair.
       Connect to the SonarQube using its public key 
-      Credentials :- Username is admin and for password we need to connect to the instance via aws console and go to the path 
+      Credentials :- Username is admin and for password we need to connect to the instance via aws console and go to the path /opt/default-sonar-login.txt
