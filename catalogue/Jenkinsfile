@@ -9,6 +9,13 @@ pipeline {
         COMPONENT = "catalogue"
         APP_VERSION = ''  // Will be overridden in stage
     }
+    parameters {
+        booleanParam(
+            name: 'deploy',
+            defaultValue: false,
+            description: 'Check this box to trigger catalogue-deployment after successful build'
+        )
+    }
     options {
         timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
         disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
