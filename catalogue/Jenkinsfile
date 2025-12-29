@@ -61,7 +61,7 @@ pipeline {
                     build job: 'catalogue-deployment',
                     parameters: [
                         string(name: 'appVersion', value: "${env.APP_VERSION}"),
-                        choice(name: 'deploy_to', value: 'dev')
+                        string(name: 'deploy_to', value: 'dev')
                     ],
                     propagate: false,  // even catalogue-deployment fails, catalogue will not be effected
                     wait: false // catalogue will not wait for catalogue-deployment pipeline completion
