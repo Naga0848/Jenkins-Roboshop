@@ -20,10 +20,12 @@ pipeline {
                 script {
                     def pkgPath = 'catalogue/package.json'
                     def packageJson = readJSON file: pkgPath
-                    def appVersion = packageJson.version
-                    appVersion = packageJson.version
+                    def appVersion = packageJson.version  // local variable, just for clarity
+
                     echo "Package version: ${appVersion}"
 
+                    // THIS IS THE KEY LINE: make it available to all later stages
+                    env.APP_VERSION = appVersion
                 }
             }
         }
