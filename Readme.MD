@@ -211,4 +211,5 @@ check rollout status, keep it in variable, write a condition using variable
 
 ## Sonar Installation
 
+   The below images shows how the scanning stage is performed in via Jenkinsfile
    ![alt text](images/scans.png)
