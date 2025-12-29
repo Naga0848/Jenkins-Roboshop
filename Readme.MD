@@ -191,3 +191,20 @@ check rollout status, keep it in variable, write a condition using variable
 2. 2nd deployment also failure, helm rollback attempts, rollback also will be failure. deployment failed and rollback failed
 3. 3rd deployment success, deployment is success
 4. 4th revision, failure. rollback is success, deployment is failure
+
+
+## SCANS
+
+   shift left --> bringing the testing and scanning to the early stages like DEV environment is shift left instead of doing in higher environments
+
+   build once in DEV and run anywhere --> We only build the application in DEV environment, we dont build in multiple environments, we promote the application to multiple environments with different configuration
+
+   static source code analysis --> sonarqube  (to see whether we are following all the coding standards)
+
+   static application secuirty testing --> sonarqube, fortify scan, github (this checks if we are unnecessarily printing the passwords in logs i.e., basically security related)
+
+   open source library scan --> nexus iq, github dependabot (this scans our dependencis which we are in our code from external resources)
+
+   dynamic application secuirty testing --> attacks on running application.. fortify webinspect, veracode --> Limited freetrail  (this is to test on a running application)
+
+   docker image scan --> vulnerabilities in the images
