@@ -208,3 +208,7 @@ check rollout status, keep it in variable, write a condition using variable
    dynamic application secuirty testing --> attacks on running application.. fortify webinspect, veracode --> Limited freetrail  (this is to test on a running application)
 
    docker image scan --> vulnerabilities in the images
+
+## Sonar Installation
+
+   ![alt text](images/scans.png)
