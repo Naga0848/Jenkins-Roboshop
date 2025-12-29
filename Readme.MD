@@ -183,3 +183,11 @@ on bastion ec2
    aws-eks update-kubeconfig --region us-east-1 name roboshop-dev
    kubectl get nodes
    
+# Jenkins(catalogue-deplpyment) steps
+
+check rollout status, keep it in variable, write a condition using variable
+
+1. first time failure, helm can't rollback because there will be no 0 version
+2. 2nd deployment also failure, helm rollback attempts, rollback also will be failure. deployment failed and rollback failed
+3. 3rd deployment success, deployment is success
+4. 4th revision, failure. rollback is success, deployment is failure
