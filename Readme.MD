@@ -212,4 +212,12 @@ check rollout status, keep it in variable, write a condition using variable
 ## Sonar Installation
 
    The below images shows how the scanning stage is performed in via Jenkinsfile
+
    ![alt text](images/scans.png)
+
+   Steps to install SonarQube
+
+   ![alt text](images/sonarqube.png)
+      In AWS console >> Instances >> launch Instances >> Sonarqube >> Subscribe it  >> launch the instance using the existing kepypair.
+      Connect to the SonarQube using its public key 
+      Credentials :- Username is admin and for password we need to connect to the instance via aws console and go to the path 
