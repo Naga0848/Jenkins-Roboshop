@@ -209,20 +209,20 @@ check rollout status, keep it in variable, write a condition using variable
 
    docker image scan --> vulnerabilities in the images
 
-## Sonar Installation
+   ## SonarQube Installation
+   
+     use the Docker >> docker-eks-via-terraform (docker.sh) repo to create a instance with dokcer and loginto the 
+   from the same instance
+   
+     docker login -u nagashankar1992332   >> command
+     prompts for a password, so give the below password
+   
+   
+     password: Naga@1992
+   
+   ![alt text](images/sonar-on-docker.png)   
 
-   The below images shows how the scanning stage is performed in via Jenkinsfile
-
-   ![alt text](images/scans.png)
-
-   Steps to install SonarQube
-
-   ![alt text](images/sonarqube.png)
-
-      In AWS console >> Instances >> launch Instances >> Sonarqube >> Subscribe it  >> launch the instance using the existing kepypair.
-      Connect to the SonarQube using its public key 
-      Credentials :- Username is admin and for password we need to connect to the instance via aws console and go to the path /opt/default-sonar-login.txt
-
-      If we dont update the payment method we get the error like the below image 
-
-   ![alt text](images/soanrerror.png)
+     sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:community   >> command to launch sonarqube via doc
+   
+     publicIP:9090  in the browser to see the sonarqube and continue with the remaining Jenkins steps
+   
