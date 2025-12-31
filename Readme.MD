@@ -212,7 +212,7 @@ check rollout status, keep it in variable, write a condition using variable
    ## SonarQube Installation
    
      use the Docker >> docker-eks-via-terraform (docker.sh) repo to create a instance with dokcer and loginto the 
-   from the same instance
+     the same instance
    
      docker login -u nagashankar1992332   >> command
      prompts for a password, so give the below password
