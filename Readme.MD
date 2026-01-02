@@ -239,5 +239,17 @@ check rollout status, keep it in variable, write a condition using variable
 
    ![alt text](images/sonarqube-installation-on-jenkins.png)   
 
+      Now, our Jenkins should now where the SonarQube is located and it should have a password or the secret text to  talk to the SonarQube
+            
+      Generating the secret text inside our SonarQube
 
+   ![alt text](images/secret-text-generation.png)   
+   
+      Now attaching the secret-text inside our Jenkins(Manage-Jenkins) and from there we should give sonar-auth like how we gave ssh-auth for jenkins-agent
+
+      Make sure the name should be same as sonar-8.0.1 which we have given while adding the scanner
+      
+
+   ![alt text](images/adding-secret-text-on-jenkins.png)
+      
    
