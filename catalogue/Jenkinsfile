@@ -38,6 +38,7 @@ pipeline {
         }
         stage('Unit Testing'){
             steps {
+                dir('catalogue')
                 script {
                      sh """
                             echo "unit tests"
@@ -50,6 +51,7 @@ pipeline {
                     scannerHome = tool 'sonar-8.0.1'  // name of the scanner which we mentioned in our Jenkins
                 }
             steps {
+                dir('catalogue')
                 script {
                     // Sonar Server envrionment
                     withSonarQubeEnv(installationName: 'sonar-8.0.1') {  // name of the scanner which we mentioned in our Jenkins
