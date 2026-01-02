@@ -234,4 +234,10 @@ check rollout status, keep it in variable, write a condition using variable
       Access the web interface at http://<your-server-ip>:9000
 
       And change the password
+
+      Now, install SonarQube Scanner plugin which will provide us an option to add a scanner
+
+   ![alt text](images/sonarqube-installation-on-jenkins.png)   
+
+
    
