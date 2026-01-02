@@ -225,4 +225,13 @@ check rollout status, keep it in variable, write a condition using variable
      sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:community   >> command to launch sonarqube via doc
    
      publicIP:9090  in the browser to see the sonarqube and continue with the remaining Jenkins steps
+
+     The default credentials for a fresh SonarQube Community Edition instance (including when run via your Docker command) are:
+
+      Username: admin
+      Password: admin
+
+      Access the web interface at http://<your-server-ip>:9000
+
+      And change the password
    
