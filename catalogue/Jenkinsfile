@@ -36,7 +36,29 @@ pipeline {
                 }
             }
         }
+        stage('Unit Testing'){
+            steps {
+                script {
+                     sh """
+                            echo "unit tests"
+                     """
+                }
+            }
+        }
+        stage('Sonar Scan'){   // sonar Scanning
+            environment {
+                    scannerHome = tool 'sonar-8.0.1'  // name of the scanner which we mentioned in our Jenkins
+                }
+            steps {
+                script {
+                    // Sonar Server envrionment
+                    withSonarQubeEnv(installationName: 'sonar-8.0.1') {  // name of the scanner which we mentioned in our Jenkins
+                            sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
 
+            }
+        }
         stage('Installing Dependencies') {  // this stage is to install the dependencies
             steps {
                 dir('catalogue') {

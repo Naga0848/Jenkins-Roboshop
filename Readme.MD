@@ -251,5 +251,9 @@ check rollout status, keep it in variable, write a condition using variable
       
 
    ![alt text](images/adding-secret-text-on-jenkins.png)
+
+   Now we will add a file named sonar-project.properties in our catalogue repo which will contain the details like what to scan and what to exclude and the name of the project
+
+   And write the stage in the catalogue Jenkinsfile and build the pipeline without deploying it in to the environment 
       
    
