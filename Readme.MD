@@ -247,7 +247,7 @@ check rollout status, keep it in variable, write a condition using variable
    
       Now attaching the secret-text inside our Jenkins(Manage-Jenkins) and from there we should give sonar-auth like how we gave ssh-auth for jenkins-agent
 
-      Make sure the name should be same as sonar-8.0.1 which we have given while adding the scanner
+      Make sure the name should be same as sonar-8.0.1 which we have given while adding the scanner inside the jenkins
       
 
    ![alt text](images/adding-secret-text-on-jenkins.png)
