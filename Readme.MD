@@ -288,4 +288,4 @@ check rollout status, keep it in variable, write a condition using variable
 
     In the below mentioned image, we can find the Quality Profiles mentioned for a Java based application
 
-  ![alt text](images.png) 
+  ![alt text](images/java-quality-profile.png) 
