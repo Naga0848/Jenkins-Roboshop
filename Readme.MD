@@ -265,7 +265,7 @@ check rollout status, keep it in variable, write a condition using variable
    
 
 
-## Quality Gate Creation in SonarQube
+## Quality Gate Creation in SonarQube and Understanding Quality Profiles
 
    We should create a quaility gate and make it as default and start adding the rules for tha over all code
 
