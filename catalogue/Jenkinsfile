@@ -2,13 +2,7 @@ pipeline {
     agent {
         label 'AGENT-1'
     }
-    environment {
-        REGION = "us-east-1"
-        ACC_ID = "324512687633"
-        PROJECT = "roboshop"
-        COMPONENT = "catalogue"
-        APP_VERSION = ''  // Will be overridden in stage
-    }
+
     parameters {
         booleanParam(
             name: 'deploy',
@@ -16,13 +10,24 @@ pipeline {
             description: 'Check this box to trigger catalogue-deployment after successful build'
         )
     }
-    options {
-        timeout(time: 30, unit: 'MINUTES')  // this shows max time to run a pipeline
-        disableConcurrentBuilds()   // this disables the parallel builds and used mostly in PROD pipelines
-        ansiColor('xterm')   // to enable the colurs in the console output
+
+    environment {
+        REGION = "us-east-1"
+        ACC_ID = "324512687633"
+        PROJECT = "roboshop"
+        COMPONENT = "catalogue"
+        APP_VERSION = ''  // Will be overridden in Read package.json stage
     }
+
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        ansiColor('xterm')
+    }
+
     stages {
-        stage('Read package.json') {  // this stage is to get the appVersion from the package.json file
+        // Stage 1: Read version from package.json  i.e., // this stage is to get the appVersion from the package.json file
+        stage('Read package.json') {
             steps {
                 script {
                     def pkgPath = 'catalogue/package.json'
@@ -30,41 +35,36 @@ pipeline {
                     def version = packageJson.version
 
                     echo "Package version: ${version}"
+                    env.APP_VERSION = version  // Make available to all later stages
+                }
+            }
+        }
 
-                    // Save to environment for use in all later stages
-                    env.APP_VERSION = version
-                }
-            }
-        }
-    }
-        stage('Unit Testing'){
+        // Stage 2: Dummy Unit Testing
+        stage('Unit Testing') {
             steps {
-                dir('catalogue'){
-                script {
-                     sh """
-                            echo "unit tests"
-                     """
+                dir('catalogue') {
+                    sh 'echo "unit tests"'
                 }
             }
-            }
         }
-        stage('Sonar Scan'){   // sonar Scanning
+
+        // Stage 3: SonarQube Code Scan
+        stage('Sonar Scan') {
             environment {
-                    scannerHome = tool 'sonar-8.0.1'  // name of the scanner which we mentioned in our Jenkins
-                }
+                scannerHome = tool 'sonar-8.0.1'  // SonarScanner tool name from Jenkins Global Tools i.e., name of the scanner which we mentioned in our Jenkins
+            }
             steps {
-                dir('catalogue'){
-                script {
-                    // Sonar Server envrionment
-                    withSonarQubeEnv(installationName: 'sonar-8.0.1') {  // name of the scanner which we mentioned in our Jenkins
-                            sh "${scannerHome}/bin/sonar-scanner"
+                dir('catalogue') {
+                    withSonarQubeEnv(installationName: 'sonar-8.0.1') {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
-
-            }
             }
         }
-        stage('Installing Dependencies') {  // this stage is to install the dependencies
+
+        // Stage 4: Install Node.js dependencies
+        stage('Installing Dependencies') {
             steps {
                 dir('catalogue') {
                     sh 'npm install'
@@ -72,7 +72,8 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {   // what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
+        // Stage 5: Build and Push Docker Image to ECR and what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
+        stage('Docker Build') {
             steps {
                 dir('catalogue') {
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {
@@ -86,9 +87,10 @@ pipeline {
             }
         }
 
-        stage('Trigger Deploy') {   // This will trigger the catalogue deployment 
+        // Stage 6: Trigger Deployment Pipeline (only if deploy param is checked)
+        stage('Trigger Deploy') {
             when {
-                expression { params.deploy == true }  // or just { params.deploy } if boolean
+                expression { params.deploy == true }
             }
             steps {
                 dir('catalogue-deployment') {
@@ -97,17 +99,17 @@ pipeline {
                         string(name: 'appVersion', value: "${env.APP_VERSION}"),
                         string(name: 'deploy_to', value: 'dev')
                     ],
-                    propagate: false,  // even catalogue-deployment fails, catalogue will not be effected
-                    wait: false // catalogue will not wait for catalogue-deployment pipeline completion
+                    propagate: false,
+                    wait: false
                 }
             }
         }
-    }
+    }  // ← This closes the stages block
 
     post {
         always {
             echo 'I will always say Hello again!'
-            deleteDir()
+            deleteDir()  // Clean workspace
         }
         success {
             echo 'Hello Success'
