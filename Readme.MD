@@ -277,4 +277,4 @@ check rollout status, keep it in variable, write a condition using variable
 
   ![alt text](images/jenkins-webhook.png)
 
-  Once webhook is enabled, the sonarqube will send back the results to Jenkins and Jenkins will wait for Quality Gates and accordingy it will fail or pass the Pipeline
+  Once webhook is enabled, the sonarqube will send back the results to Jenkins and Jenkins will wait for Quality Gates and accordingy it will fail or pass the Pipeline...
