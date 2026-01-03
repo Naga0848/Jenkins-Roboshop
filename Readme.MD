@@ -282,10 +282,10 @@ check rollout status, keep it in variable, write a condition using variable
   The Quality Gate functions according to the rules in the Quality Profiles.
 
   Quality Profiles:-
-    Quality profiles are collections of rules to apply during an analysis. For each language, there is a default profile. All projects not explicitly assigned to some other profile will be analyzed with the default. Ideally, all projects will use the same profile for a language.
+   Quality profiles are collections of rules to apply during an analysis. For each language, there is a default profile. All projects not explicitly assigned to some other profile will be analyzed with the default. Ideally, all projects will use the same profile for a language.
 
-    These profiles are described by the top level tech people and the archeticts in our company.
+   These profiles are described by the top level tech people and the archeticts in our company.
 
-    In the below mentioned image, we can find the Quality Profiles mentioned for a Java based application
+   In the below mentioned image, we can find the Quality Profiles mentioned for a Java based application
 
   ![alt text](images/java-quality-profile.png) 
