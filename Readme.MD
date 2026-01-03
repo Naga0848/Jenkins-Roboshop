@@ -276,3 +276,5 @@ check rollout status, keep it in variable, write a condition using variable
   Now, we have to include a stage named Sonar Quality Gates to check the code related issues. For this we have to andable webhooks in the SonarQube as shown below, and the url is jenkins publicIP (http://publicIP:8080/)
 
   ![alt text](images/jenkins-webhook.png)
+
+  Once webhook is enabled, the sonarqube will send back the results to Jenkins and Jenkins will wait for Quality Gates and accordingy it will fail or pass the Pipeline
