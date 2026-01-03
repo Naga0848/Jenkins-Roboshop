@@ -289,3 +289,21 @@ check rollout status, keep it in variable, write a condition using variable
    In the below mentioned image, we can find the Quality Profiles mentioned for a Java based application
 
   ![alt text](images/java-quality-profile.png) 
+
+
+## Open source library scan
+
+Nexus IQ --> enterprise level scanning tool. We recently decommissioned this and started using github dependabot
+
+We enabled dependabot in all our repos, we are checking the dependabot alerts in our pipeline, if we see high and critical alerts we are failing the pipeline...
+
+curl -s -H \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token <token>" \
+  https://api.github.com/repos/daws-84s/catalogue/dependabot/alerts/
+  
+  
+curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token <token>" https://api.github.com/repos/daws-84s/catalogue/dependabot/alerts
+
+
+We need to generate token in our GitHub and use it in the Jenkinsfile
