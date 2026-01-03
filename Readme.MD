@@ -279,7 +279,7 @@ check rollout status, keep it in variable, write a condition using variable
 
   Once webhook is enabled, the sonarqube will send back the results to Jenkins and Jenkins will wait for Quality Gates and accordingy it will fail or pass the Pipeline...
 
-  The Quality Gate functions according to the rules in the Quality Profiles.
+  The Quality Gate works according to the rules in the Quality Profiles. Quality Gate decides whether it is a bug or not llok at the rules mentioned in the Quality Profiles
 
   Quality Profiles:-
    Quality profiles are collections of rules to apply during an analysis. For each language, there is a default profile. All projects not explicitly assigned to some other profile will be analyzed with the default. Ideally, all projects will use the same profile for a language.
