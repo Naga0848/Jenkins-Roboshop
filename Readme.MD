@@ -255,5 +255,24 @@ check rollout status, keep it in variable, write a condition using variable
    Now we will add a file named sonar-project.properties in our catalogue repo which will contain the details like what to scan and what to exclude and the name of the project
 
    And write the stage in the catalogue Jenkinsfile and build the pipeline without deploying it in to the environment 
-      
    
+   Please select the mode(standard) as shown in the below images
+
+   ![alt text](images/mode-selection.png)
+
+   ![alt text](images/standard-mode.png)
+
+   
+
+
+## Quality Gate Creation in SonarQube
+
+   We should create a quaility gate and make it as default and start adding the rules for tha over all code
+
+  ![alt text](images/new-code.png)
+
+  ![alt text](images/overall-code.png)
+
+  Now, we have to include a stage named Sonar Quality Gates to check the code related issues. For this we have to andable webhooks in the SonarQube as shown below, and the url is jenkins publicIP (http://publicIP:8080/)
+
+  ![alt text](images/jenkins-webhook.png)
