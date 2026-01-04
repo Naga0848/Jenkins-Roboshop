@@ -1,128 +1,13 @@
-pipeline {
-    agent {
-        label 'AGENT-1'   // this is the label-name which we are using in jenkins-agent
-    }
+@Library('jenkins-shared-library') _
 
-    parameters {
-        booleanParam(
-            name: 'deploy',
-            defaultValue: false,
-            description: 'Check this box to trigger catalogue-deployment after successful build'
-        )
-    }
+def configMap = [
+    project : "roboshop",
+    component: "catalogue"
+]
 
-    environment {
-        REGION = "us-east-1"
-        ACC_ID = "324512687633"
-        PROJECT = "roboshop"
-        COMPONENT = "catalogue"
-        APP_VERSION = ''  // Will be overridden in Read package.json stage
-    }
-
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-        disableConcurrentBuilds()
-        ansiColor('xterm')
-    }
-
-    stages {
-        // Stage 1: Read version from package.json  i.e., // this stage is to get the appVersion from the package.json file
-        stage('Read package.json') {
-            steps {
-                script {
-                    def pkgPath = 'catalogue/package.json'
-                    def packageJson = readJSON file: pkgPath
-                    def version = packageJson.version
-
-                    echo "Package version: ${version}"
-                    env.APP_VERSION = version  // Make available to all later stages
-                }
-            }
-        }
-
-        // Stage 2: Dummy Unit Testing
-        stage('Unit Testing') {
-            steps {
-                dir('catalogue') {
-                    sh 'echo "unit tests"'
-                }
-            }
-        }
-
-        // Stage 3: SonarQube Code Scan
-        stage('Sonar Scan') {
-            environment {
-                scannerHome = tool 'sonar-8.0.1'  // SonarScanner tool name from Jenkins Global Tools i.e., name of the scanner which we mentioned in our Jenkins
-            }
-            steps {
-                dir('catalogue') {
-                    withSonarQubeEnv(installationName: 'sonar-8.0.1') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
-        // Enable webhook in sonarqube server and wait for results
-        stage("Quality Gate") {
-            steps {
-                 timeout(time: 1, unit: 'HOURS'){
-                    waitForQualityGate abortPipeline: true 
-                 }
-            }
-        }
-        // Stage 4: Install Node.js dependencies
-        stage('Installing Dependencies') {
-            steps {
-                dir('catalogue') {
-                    sh 'npm install'
-                }
-            }
-        }
-
-        // Stage 5: Build and Push Docker Image to ECR and what ever we mentioned inside this stage are the commmands given in the AWS ECR itself, but we have to modify little according to our project
-        stage('Docker Build') {
-            steps {
-                dir('catalogue') {
-                    withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                        sh """
-                            aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
-                            docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${env.APP_VERSION} .
-                            docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${env.APP_VERSION}
-                        """
-                    }
-                }
-            }
-        }
-
-        // Stage 6: Trigger Deployment Pipeline (only if deploy param is checked)
-        stage('Trigger Deploy') {
-            when {
-                expression { params.deploy == true }
-            }
-            steps {
-                dir('catalogue-deployment') {
-                    build job: 'catalogue-deployment',
-                    parameters: [
-                        string(name: 'appVersion', value: "${env.APP_VERSION}"),
-                        string(name: 'deploy_to', value: 'dev')
-                    ],
-                    propagate: false,
-                    wait: false
-                }
-            }
-        }
-    }  // ← This closes the stages block
-
-    post {
-        always {
-            echo 'I will always say Hello again!'
-            deleteDir()  // Clean workspace
-        }
-        success {
-            echo 'Hello Success'
-        }
-        failure {
-            echo 'Hello Failure'
-        }
-    }
+if( ! env.BRANCH_NAME.equalsIgnoreCase('main') ){ // if not equals to main
+    nodejsEKSPipeline(configMap) // by default it will call, call function inside this pipeline
+}
+else{
+    echo "Please proceed with PROD process"
 }
