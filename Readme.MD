@@ -307,3 +307,6 @@ curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token <token
 
 
 We need to generate token in our GitHub and use it in the Jenkinsfile
+
+
+![alt text](images/github1.png)
